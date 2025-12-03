@@ -1,0 +1,84 @@
+﻿/* Theme Colors */
+:root {
+    --dark-blue: #0a1a3a; /* navbar */
+    --light-blue: #e8f1ff; /* page background */
+}
+
+/* Body Background */
+body {
+    background: var(--light-blue);
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Navbar Dark Blue */
+.navbar {
+    background-color: var(--dark-blue) !important;
+}
+
+    /* Navbar Text Colors */
+    .navbar .nav-link,
+    .navbar .navbar-brand {
+        color: white !important;
+        transition: 0.2s;
+    }
+
+        .navbar .nav-link:hover {
+            color: #a8c6ff !important;
+        }
+/* Page Background */
+.login-wrapper {
+    min-height: 85vh;
+}
+
+/* Clean login card */
+.login-card {
+    width: 380px;
+    background: white;
+    border-radius: 12px;
+}
+
+/* Input styling */
+.form-control {
+    border-radius: 8px;
+}
+
+/* Big nicer title color */
+.text-primary {
+    color: #0a1a3a !important; /* same dark blue as navbar */
+}
+
+/* Button color override */
+.btn-primary {
+    background-color: #0a1a3a !important;
+    border-color: #0a1a3a !important;
+}
+
+    .btn-primary:hover {
+        background-color: #143063 !important;
+        border-color: #143063 !important;
+    }
+
+/* Page background (same as login page look) */
+.users-container {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+/* Title color — match dark blue theme */
+.text-primary {
+    color: #0a1a3a !important;
+}
+
+/* Table styling */
+.table-hover tbody tr:hover {
+    background-color: #e3e9ff !important; /* very soft blue hover */
+}
+
+/* Card look */
+.card {
+    border-radius: 12px;
+}

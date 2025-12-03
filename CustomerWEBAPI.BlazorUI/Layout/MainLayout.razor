@@ -1,0 +1,41 @@
+﻿
+@inherits LayoutComponentBase
+
+<nav class="navbar navbar-expand-lg shadow-sm">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold text-white" href="/">
+            <i class="bi bi-app-indicator me-1"></i> MyApp
+        </a>
+
+        <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <NavLink class="nav-link nav-blue-link" href="/customers" Match="NavLinkMatch.All">
+                        <i class="bi bi-people me-1 "></i> Customer
+                    </NavLink>
+                </li>
+
+                <li class="nav-item">
+                    <NavLink class="nav-link nav-blue-link" href="/products">
+                        <i class="bi bi-box-seam"></i> Product
+                    </NavLink>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<main class="container py-4 page-bg">
+    @Body
+</main>

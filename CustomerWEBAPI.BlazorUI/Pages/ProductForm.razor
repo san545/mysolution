@@ -1,0 +1,66 @@
+﻿@page "/ProductForm"
+@page "/ProductForm/{id:int}"
+@using CustomerWEBAPI.BlazorUI.Models
+@using CustomerWEBAPI.BlazorUI.Services
+
+@inject ProductService productservice
+@inject NavigationManager navigationManager
+
+<h3>Product Form</h3>
+<button class="btn btn-primary" @onclick="ViewProducts">Back</button>
+
+@if (product == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="card p-3">
+        <div class="mb-3">
+            <label class="form-label">Product Name</label>
+            <input class="form-control" @bind="product.prod_desc" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Product Code</label>
+            <input class="form-control" @bind="product.prod_cd" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input class="form-control" @bind="product.Rate" />
+        </div>
+
+        <button class="btn btn-primary" @onclick="SaveProduct">Save</button>
+    </div>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    Product product = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (id > 0)
+        {
+            product = await productservice.GetByIdAsync(id);
+        }
+        else
+        {
+            product = new Product(); // for add new
+        }
+    }
+
+    private async Task SaveProduct()
+    {
+        if (product.prod_id > 0)
+            await productservice.UpdateAsync(product);
+        else
+            await productservice.AddAsync(product);
+
+        navigationManager.NavigateTo("/products");
+    }
+    private void ViewProducts()
+    {
+        navigationManager.NavigateTo("/products");
+    }
+}

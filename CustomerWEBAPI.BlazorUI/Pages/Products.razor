@@ -1,0 +1,63 @@
+﻿@page "/products"
+@using CustomerWEBAPI.BlazorUI.Models
+@using CustomerWEBAPI.BlazorUI.Services
+@inject ProductService productService
+@inject NavigationManager Navigation
+
+<h3>Products</h3>
+
+<button class="btn btn-primary" @onclick="CreateProduct">Add Product</button>
+
+@if (products == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Rate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in products)
+            {
+                <tr>
+                    <td>@p.prod_id</td>
+                    <td>@p.prod_cd</td>
+                    <td>@p.prod_desc</td>
+                    <td>@p.Rate</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning" @onclick="() => EditProduct(p)">Edit</button>
+                        <button class="btn btn-sm btn-danger" @onclick="() => DeleteProduct(p.prod_id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Product>? products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await productService.GetAllAsync();
+    }
+
+    async Task DeleteProduct(int id)
+    {
+        await productService.DeleteAsync(id);
+        products = await productService.GetAllAsync();
+    }
+
+    void CreateProduct() => Navigation.NavigateTo("/productform");
+
+    void EditProduct(Product p) =>
+        Navigation.NavigateTo($"/productform/{p.prod_id}");
+}

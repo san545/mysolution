@@ -1,0 +1,77 @@
+﻿@page "/CustomerForm"
+@page "/CustomerForm/{id:int}"
+@using CustomerWEBAPI.BlazorUI.Models
+@using CustomerWEBAPI.BlazorUI.Services
+
+@inject CustomerService customerservice
+@inject NavigationManager navigationManager
+
+<h3>Customer Form</h3>
+<button class="btn btn-primary" @onclick="ViewCustomers">Back</button>
+
+@if (customer == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="card p-3">
+        <div class="mb-3">
+            <label class="form-label">Customer Name</label>
+            <input class="form-control" @bind="customer.cust_name" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input class="form-control" @bind="customer.address" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">MOB</label>
+            <input class="form-control" @bind="customer.mob_no" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">GST No.</label>
+            <input class="form-control" @bind="customer.gst_no" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">City</label>
+            <input class="form-control" @bind="customer.city" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Country</label>
+            <input class="form-control" @bind="customer.country" />
+        </div>
+        <button class="btn btn-primary" @onclick="SaveCustomer">Save</button>
+    </div>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    Customer customer = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (id > 0)
+        {
+            customer = await customerservice.GetById(id);
+        }
+        else
+        {
+            customer = new Customer(); // for add new
+        }
+    }
+
+    private async Task SaveCustomer()
+    {
+        if (customer.cust_id > 0)
+            await customerservice.UpdateAsync(customer);
+        else
+            await customerservice.AddAsync(customer);
+
+        navigationManager.NavigateTo("/customers");
+    }
+    private void ViewCustomers()
+    {
+        navigationManager.NavigateTo("/customers");
+    }
+}
